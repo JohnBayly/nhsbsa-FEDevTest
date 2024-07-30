@@ -26,76 +26,61 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="firstName">
-                            First Name:
-                        </label>
+
+                    {# input macro #}
+                    {% macro field(text, id, name, type='text', value, fieldErrorName) %}
+
+                        {% set searchField = true %}
+
+                        {# for div errrors #}
+                        {% set searchFieldDiv = true %}
                         {% for error in errors %}
-                            {% if error.path == "firstName" %}
-                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="firstName-error">
-                                    <span class="nhsuk-u-visually-hidden">Error:</span>
-                                    {{ error.msg }}
-                                </span>
+                            {% if error.path == fieldErrorName and searchFieldDiv %}
+                                {% set searchField = false %}
+                            <div class="nhsuk-form-group nhsuk-form-group--error" >
+                                <label class="nhsuk-label" for="{{ id }}">{{text | capitalize}}:</label>
+                                {% set searchFieldDiv = false %}
                             {% endif %}
                         {% endfor %}
-                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="firstName" name="firstName" type="text" value={{value.firstName}}>
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="lastName">
-                             Last name:
-                        </label>
+
+                        {# for span errors #}
                         {% for error in errors %}
-                            {% if error.path == "lastName" %}
-                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="lastName-error">
-                                    <span class="nhsuk-u-visually-hidden">Error:</span>
-                                    {{ error.msg }}
-                                </span>
-                            {% endif %}
-                        {% endfor %}
-                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="lastName" name="lastName" type="text" value={{value.lastName}}>
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="email">
-                            Email:
-                        </label>
-                        {% for error in errors %}
-                            {% if error.path == "email" %}
+                            {% if error.path == fieldErrorName %}
                                 <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="email-error">
-                                    <span class="nhsuk-u-visually-hidden">Error:</span>
-                                    {{ error.msg }}
-                                </span>
+                                                <span class="nhsuk-u-visually-hidden">Error:</span>
+                                                {{ error.msg }}
+                                            </span>
                             {% endif %}
                         {% endfor %}
-                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="email" name="email" type="email" value={{value.email}}>
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="password">
-                            Password:
-                        </label>
+
+                        {# for input errors #}
+                        {% set searchFieldInput = true %}
                         {% for error in errors %}
-                            {% if error.path == "password" %}
-                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="password-error">
-                                    <span class="nhsuk-u-visually-hidden">Error:</span>
-                                    {{ error.msg }}
-                                </span>
+                            {% if error.path == fieldErrorName and searchFieldInput%}
+                                <input class="nhsuk-input nhsuk-u-width-two-thirds nhsuk-form-group--error"
+                                       id="{{id}}" name="{{name}}" type="{{type}}" value={{value}} />
+                                </div>
+                                {% set searchFieldInput = false %}
                             {% endif %}
                         {% endfor %}
-                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="password" name="password" type="password" value={{value.password}}>
-                    </div>
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="confirmPassword">
-                            Confirm password:
-                        </label>
-                        {% for error in errors %}
-                            {% if error.path == "confirmPassword" %}
-                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="confirmPassword-error">
-                                    <span class="nhsuk-u-visually-hidden">Error:</span>
-                                    {{ error.msg }}
-                                </span>
-                            {% endif %}
-                        {% endfor %}
-                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="confirmPassword" name="confirmPassword" type="password" value={{value.confirmPassword}}>
-                    </div>
+
+                        {# for non errors if errors array < 1 #}
+                        {% if searchField  %}
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="{{ id }}">{{text | capitalize}}:</label>
+                            <input class="nhsuk-input nhsuk-u-width-two-thirds" id="{{id}}" name="{{name}}" type="{{type}}" value={{value}}>
+                        </div>
+                        {% endif %}
+                    {% endmacro %}
+
+                    <script> console.log('{{ value | dump | safe }}')</script>
+
+                    {{ field(text='first name', id='firstName', name='firstName', type='text', value=value.firstName, fieldErrorName='firstName') }}
+                    {{ field(text='last name', id='lastName', name='lastName', type='text', value=value.lastName, fieldErrorName='lastName') }}
+                    {{ field(text='email', id='email', name='email', type='email', value=value.email, fieldErrorName='email') }}
+                    {{ field(text='password', id='password', name='password', type='password', value=value.password, fieldErrorName='password') }}
+                    {{ field(text='confirm password', id='confirmPassword', name='confirmPassword', type='password', value=value.confirmPassword, fieldErrorName='confirmPassword') }}
+
 
                     <button class="nhsuk-button nhsuk-u-margin-top-6" data-module="nhsuk-button" type="submit">
                       Submit
