@@ -1,0 +1,110 @@
+{% extends "layout.njk" %}
+{% block title %}{{errorTitle}} Login{% endblock %}
+{% block content %}
+            <form action="/login" method="POST" class="nhsuk-form-group">
+                <fieldset class="nhsuk-fieldset">
+                  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+                    <h1 class="nhsuk-fieldset__heading">
+                        Please login
+                    </h1>
+                    </legend>
+                    {% if errors %}
+                        <div class="nhsuk-error-summary" role="alert" aria-labelledby="error-summary-title">
+                            <h2 class="nhsuk-error-summary__title" id="error-summary-title">
+                                There is a problem
+                            </h2>
+                            <div class="nhsuk-error-summary__body">
+                                <p>
+                                    Please fix the following issues
+                                </p>
+                                <ul class="nhsuk-list nhsuk-error-summary__list">
+                                    {% for error in errors %}
+                                        <li><a href="#{{ error.path }}">{{ error.msg }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="firstName">
+                            First Name:
+                        </label>
+                        {% for error in errors %}
+                            {% if error.path == "firstName" %}
+                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="firstName-error">
+                                    <span class="nhsuk-u-visually-hidden">Error:</span>
+                                    {{ error.msg }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
+                        <input class="nhsuk-input" id="firstName" name="firstName" type="text" value={{value.firstName}}>
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="lastName">
+                             Last name:
+                        </label>
+                        {% for error in errors %}
+                            {% if error.path == "lastName" %}
+                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="lastName-error">
+                                    <span class="nhsuk-u-visually-hidden">Error:</span>
+                                    {{ error.msg }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
+                        <input class="nhsuk-input" id="lastName" name="lastName" type="text" value={{value.lastName}}>
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="email">
+                            Email:
+                        </label>
+                        {% for error in errors %}
+                            {% if error.path == "email" %}
+                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="email-error">
+                                    <span class="nhsuk-u-visually-hidden">Error:</span>
+                                    {{ error.msg }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
+                        <input class="nhsuk-input" id="email" name="email" type="email" value={{value.email}}>
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="password">
+                            Password:
+                        </label>
+                        {% for error in errors %}
+                            {% if error.path == "password" %}
+                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="password-error">
+                                    <span class="nhsuk-u-visually-hidden">Error:</span>
+                                    {{ error.msg }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
+                        <input class="nhsuk-input" id="password" name="password" type="password" value={{value.password}}>
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="confirmPassword">
+                            Confirm password:
+                        </label>
+                        {% for error in errors %}
+                            {% if error.path == "confirmPassword" %}
+                                <span class="nhsuk-error-message nhsuk-u-margin-bottom-0" id="confirmPassword-error">
+                                    <span class="nhsuk-u-visually-hidden">Error:</span>
+                                    {{ error.msg }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
+                        <input class="nhsuk-input" id="confirmPassword" name="confirmPassword" type="password" value={{value.confirmPassword}}>
+                    </div>
+
+                    <button class="nhsuk-button nhsuk-u-margin-top-6" data-module="nhsuk-button" type="submit">
+                      Submit
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+{% endblock %}
