@@ -1,6 +1,9 @@
 {% extends "layout.njk" %}
 {% block title %}{{errorTitle}} Login{% endblock %}
 {% block content %}
+<!-- Seprate out 1 question per page -->
+<!-- If I had more time would do aria-describedby when error to match span tag-->
+<!-- If I had more time would do unit testing-->
             <form action="/login" method="POST" class="nhsuk-form-group">
                 <fieldset class="nhsuk-fieldset">
                   <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
@@ -25,7 +28,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="nhsuk-form-group">
+                    <div class="nhsuk-form-group" nhsuk-form-group--error>
                         <label class="nhsuk-label" for="firstName">
                             First Name:
                         </label>
@@ -37,8 +40,7 @@
                                 </span>
                             {% endif %}
                         {% endfor %}
-                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
-                        <input class="nhsuk-input" id="firstName" name="firstName" type="text" value={{value.firstName}}>
+                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="firstName" name="firstName" type="text" value={{value.firstName}}>
                     </div>
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="lastName">
@@ -52,8 +54,7 @@
                                 </span>
                             {% endif %}
                         {% endfor %}
-                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
-                        <input class="nhsuk-input" id="lastName" name="lastName" type="text" value={{value.lastName}}>
+                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="lastName" name="lastName" type="text" value={{value.lastName}}>
                     </div>
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="email">
@@ -67,8 +68,7 @@
                                 </span>
                             {% endif %}
                         {% endfor %}
-                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
-                        <input class="nhsuk-input" id="email" name="email" type="email" value={{value.email}}>
+                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="email" name="email" type="email" value={{value.email}}>
                     </div>
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="password">
@@ -82,8 +82,7 @@
                                 </span>
                             {% endif %}
                         {% endfor %}
-                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
-                        <input class="nhsuk-input" id="password" name="password" type="password" value={{value.password}}>
+                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="password" name="password" type="password" value={{value.password}}>
                     </div>
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="confirmPassword">
@@ -97,8 +96,7 @@
                                 </span>
                             {% endif %}
                         {% endfor %}
-                        <div class="nhsuk-u-margin-top-3" aria-hidden="true" role=presentation></div>
-                        <input class="nhsuk-input" id="confirmPassword" name="confirmPassword" type="password" value={{value.confirmPassword}}>
+                        <input class="nhsuk-input nhsuk-u-width-two-thirds" id="confirmPassword" name="confirmPassword" type="password" value={{value.confirmPassword}}>
                     </div>
 
                     <button class="nhsuk-button nhsuk-u-margin-top-6" data-module="nhsuk-button" type="submit">
