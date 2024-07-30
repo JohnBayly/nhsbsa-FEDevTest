@@ -1,6 +1,6 @@
 # NHSBSA-Front end developer test
 Front end developer test
-A simple NHS login using using node.js.
+a simple NHS login using using node.js, nunchucks.js and express.js
 
 ## Setup
 - Clone repository, and run npm install
